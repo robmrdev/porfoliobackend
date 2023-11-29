@@ -6,22 +6,6 @@ import { counterModel } from "./src/dao/models/counter.model.js";
 const app = express()
 app.use(express.json());
 app.use(cors({origin: 'https://robertmendoza.netlify.app/',credentials: true}))
-// const transporter = nodemailer.createTransport({
-//     host: 'smtp.gmail.com',
-//     port: 465,
-//     secure: true, // Utiliza SMTPS
-//     auth: {
-//         user: 'robmr.dev@gmail.com',
-//         pass: 'dpiugbguhugqkwya'
-//     }
-// })
-try {
-    await mongoose.connect('mongodb+srv://robmrdev:6jaBoEyWbmYr3K50@porfoliocluster.f5l4xfs.mongodb.net/portfolioDB?retryWrites=true&w=majority')
-    console.log('DB connected')
-} catch (error) {
-    console.log(error.message)   
-}
-
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
@@ -29,11 +13,27 @@ const transporter = nodemailer.createTransport({
     auth: {
         user: 'robmr.dev@gmail.com',
         pass: 'dpiugbguhugqkwya'
-    },
-    tls: {
-        rejectUnauthorized: false // Desactiva la verificación del certificado (SOLO PARA DESARROLLO)
     }
 })
+try {
+    await mongoose.connect('mongodb+srv://robmrdev:6jaBoEyWbmYr3K50@porfoliocluster.f5l4xfs.mongodb.net/portfolioDB?retryWrites=true&w=majority')
+    console.log('DB connected')
+} catch (error) {
+    console.log(error.message)   
+}
+
+// const transporter = nodemailer.createTransport({
+//     host: 'smtp.gmail.com',
+//     port: 465,
+//     secure: true, // Utiliza SMTPS
+//     auth: {
+//         user: 'robmr.dev@gmail.com',
+//         pass: 'dpiugbguhugqkwya'
+//     },
+//     tls: {
+//         rejectUnauthorized: false // Desactiva la verificación del certificado (SOLO PARA DESARROLLO)
+//     }
+// })
 
 app.post('/mail', async (req,res)=>{
     const {name, email, message} = req.body
