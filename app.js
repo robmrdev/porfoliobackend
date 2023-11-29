@@ -5,7 +5,7 @@ import cors from 'cors'
 import { counterModel } from "./src/dao/models/counter.model.js";
 const app = express()
 app.use(express.json());
-app.use(cors({origin: 'https://robertmendoza.netlify.app/',credentials: true}))
+app.use(cors({origin: 'https://robertmendoza.netlify.app',credentials: true}))
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
